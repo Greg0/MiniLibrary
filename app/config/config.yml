@@ -67,9 +67,15 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-sonata_block:
-    default_contexts: [cms]
-    blocks:
-        #enable the SonataAdminBundle block
-        sonata.admin.block.admin_list:
-          contexts: [admin]
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Greg0\LibraryBundle\Entity\User
+    group:
+        group_class: Greg0\LibraryBundle\Entity\Group
+
+easy_admin:
+    entities:
+        - Greg0\LibraryBundle\Entity\Book
+        - Greg0\LibraryBundle\Entity\Author
+        - Greg0\LibraryBundle\Entity\User

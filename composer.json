@@ -30,9 +30,9 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "knplabs/knp-menu-bundle": "^2.0",
-        "sonata-project/admin-bundle": "^3.9",
         "mopa/bootstrap-bundle": "^3.1",
-        "twbs/bootstrap": "^3.3"
+        "twbs/bootstrap": "^3.3",
+        "javiereguiluz/easyadmin-bundle": "^1.16"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
