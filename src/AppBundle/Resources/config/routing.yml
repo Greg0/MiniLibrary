@@ -1,0 +1,7 @@
+
+lucky:
+    path:     /lucky/number
+    defaults: { _controller: AppBundle:Lucky:number }
+homepage:
+    path:     /
+    defaults: { _controller: AppBundle:Default:index }
