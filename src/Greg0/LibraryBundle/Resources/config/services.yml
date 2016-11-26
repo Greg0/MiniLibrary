@@ -2,3 +2,8 @@ services:
 #    library.example:
 #        class: Greg0\LibraryBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    library.admin.author:
+        class: Greg0\LibraryBundle\Admin\AuthorAdmin
+        arguments: [~, Greg0\LibraryBundle\Entity\Author, LibraryBundle:AuthorAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Author }

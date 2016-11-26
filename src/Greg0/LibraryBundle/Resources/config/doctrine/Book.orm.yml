@@ -1,0 +1,65 @@
+Greg0\LibraryBundle\Entity\Book:
+    type: entity
+    table: book
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        shortDescription:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: short_description
+        description:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        cover:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+    manyToMany:
+        author:
+            targetEntity: Author
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: book
+            joinTable:
+                name: books_authors
+                joinColumns:
+                    -
+                        name: book_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: author_id
+                        referencedColumnName: id
+            orderBy: null
+    lifecycleCallbacks: {  }
