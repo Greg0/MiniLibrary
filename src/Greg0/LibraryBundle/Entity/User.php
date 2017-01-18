@@ -17,7 +17,12 @@ class User extends BaseUser
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $bookVersion;
+    private $books;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $groups;
 
     /**
      * Constructor
@@ -25,19 +30,19 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->bookVersion = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->books = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Add bookVersion
      *
-     * @param \Greg0\LibraryBundle\Entity\BookVersion $bookVersion
+     * @param \Greg0\LibraryBundle\Entity\Book $bookVersion
      *
      * @return User
      */
-    public function addBookVersion(\Greg0\LibraryBundle\Entity\BookVersion $bookVersion)
+    public function addBook(\Greg0\LibraryBundle\Entity\Book $bookVersion)
     {
-        $this->bookVersion[] = $bookVersion;
+        $this->books[] = $bookVersion;
 
         return $this;
     }
@@ -45,11 +50,11 @@ class User extends BaseUser
     /**
      * Remove bookVersion
      *
-     * @param \Greg0\LibraryBundle\Entity\BookVersion $bookVersion
+     * @param \Greg0\LibraryBundle\Entity\Book $bookVersion
      */
-    public function removeBookVersion(\Greg0\LibraryBundle\Entity\BookVersion $bookVersion)
+    public function removeBook(\Greg0\LibraryBundle\Entity\Book $bookVersion)
     {
-        $this->bookVersion->removeElement($bookVersion);
+        $this->books->removeElement($bookVersion);
     }
 
     /**
@@ -57,8 +62,8 @@ class User extends BaseUser
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBookVersion()
+    public function getBooks()
     {
-        return $this->bookVersion;
+        return $this->books;
     }
 }

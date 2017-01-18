@@ -2,6 +2,7 @@
 
 namespace Greg0\LibraryBundle\Entity;
 
+use Symfony\Component\HttpFoundation\File\File;
 /**
  * Book
  */
@@ -33,6 +34,11 @@ class Book
     private $cover;
 
     /**
+     * @var File
+     */
+    private $coverFile;
+
+    /**
      * @var \DateTime
      */
     private $createdAt;
@@ -48,11 +54,17 @@ class Book
     private $author;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $user;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->author = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->books = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -243,9 +255,69 @@ class Book
         return $this->author;
     }
 
+    /**
+     * @param User $user
+     * @return Book
+     */
+    public function addUser(User $user)
+    {
+        $this->user[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function removeUser(User $user)
+    {
+        $this->user->removeElement($user);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getTitle();
+    }
+
+    public function addCreationDateOnPrePersist()
+    {
+        $this->setCreatedAt(new \DateTime());
+    }
+
+    public function addUpdateDateOnPreUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime());
+    }
+
+    /**
+     * @param File|null $cover
+     */
+    public function setCoverFile(File $cover = null)
+    {
+        $this->coverFile = $cover;
+
+        if ($cover) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return File
+     */
+    public function getCoverFile()
+    {
+        return $this->coverFile;
     }
 }
 

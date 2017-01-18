@@ -42,7 +42,7 @@ Greg0\LibraryBundle\Entity\Book:
             column: created_at
         updatedAt:
             type: datetime
-            nullable: false
+            nullable: true
             column: updated_at
     manyToMany:
         author:
@@ -62,4 +62,15 @@ Greg0\LibraryBundle\Entity\Book:
                         name: author_id
                         referencedColumnName: id
             orderBy: null
-    lifecycleCallbacks: {  }
+        user:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: book
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks:
+        prePersist: [ addCreationDateOnPrePersist ]
+        preRemove: []
+        preUpdate: [ addUpdateDateOnPreUpdate ]

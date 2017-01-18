@@ -9,21 +9,21 @@ Greg0\LibraryBundle\Entity\User:
             generator:
                 strategy: AUTO
     manyToMany:
-        bookVersion:
-            targetEntity: BookVersion
+        books:
+            targetEntity: Book
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: user
             joinTable:
-                name: users_book_versions
+                name: users_books
                 joinColumns:
                     -
                         name: user_id
                         referencedColumnName: id
                 inverseJoinColumns:
                     -
-                        name: book_version_id
+                        name: book_id
                         referencedColumnName: id
             orderBy: null
         groups:
@@ -36,4 +36,4 @@ Greg0\LibraryBundle\Entity\User:
                 inverseJoinColumns:
                     group_id:
                         referencedColumnName: id
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks: {}
