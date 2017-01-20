@@ -1,0 +1,7 @@
+main:
+    app_name: 'Book Share'
+    menu: 'Menu'
+topnav:
+    browse_library: 'Szukaj książek'
+profile:
+    my_library: 'Moja bilbioteka'

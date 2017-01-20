@@ -23,7 +23,7 @@ class LoadGroupData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($groupAdmin);
 
         $groupUser = new Group('user');
-        $groupUser->addRole('ROLE_ADMIN');
+        $groupUser->addRole('ROLE_USER');
         $manager->persist($groupUser);
 
         $manager->flush();
