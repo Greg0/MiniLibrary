@@ -1,3 +1,20 @@
-library_homepage:
-    path:     /
-    defaults: { _controller: LibraryBundle:Default:index }
+homepage:
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /books
+        permament: true
+book_index:
+    path:     /books/{page}
+    defaults: { _controller: LibraryBundle:Book:index, page: 1 }
+    requirements:
+        page: '\d+'
+book_show:
+    path: /book/{id}
+    defaults: { _controller: LibraryBundle:Book:show }
+book_cover:
+    path: /book/cover/{filename}
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: %app.path.book_covers%/
+        permament: true

@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class Book
 {
+    const NO_COVER_FILE = 'no_cover.png';
+
     /**
      * @var integer
      */
@@ -170,6 +172,11 @@ class Book
      */
     public function getCover()
     {
+        if (is_null($this->cover))
+        {
+            return Book::NO_COVER_FILE;
+        }
+
         return $this->cover;
     }
 
@@ -318,6 +325,11 @@ class Book
     public function getCoverFile()
     {
         return $this->coverFile;
+    }
+
+    public function getCoverFullPath()
+    {
+
     }
 }
 

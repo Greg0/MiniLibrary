@@ -1,6 +1,7 @@
 Greg0\LibraryBundle\Entity\Book:
     type: entity
     table: book
+    repositoryClass: Greg0\LibraryBundle\Repository\BookRepository
     id:
         id:
             type: integer
@@ -66,7 +67,7 @@ Greg0\LibraryBundle\Entity\Book:
             targetEntity: User
             cascade: {  }
             fetch: LAZY
-            mappedBy: book
+            mappedBy: books
             inversedBy: null
             joinTable: null
             orderBy: null

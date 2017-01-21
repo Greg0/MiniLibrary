@@ -89,3 +89,28 @@
 #footer a {
     color: inherit;
 }
+
+.book-cover {
+    text-align: center;
+}
+
+.list-item {
+    margin-bottom: 25px;
+    border: 1px solid #f8f8f8;
+    padding: 3px;
+}
+
+.list-item h3 {
+    padding: 0 8px;
+}
+
+
+img.book-cover.book-cover--small-size, .book-cover.book-cover--small-size img {
+    width: 175px;
+}
+
+
+
+img.book-cover.book-cover--normal-size, .book-cover.book-cover--normal-size img {
+    width: 220px;
+}

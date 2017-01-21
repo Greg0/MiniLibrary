@@ -1,0 +1,25 @@
+{% extends 'LibraryBundle:Layout:layout.html.twig' %}
+
+{% block body %}
+
+    <div class="row">
+    {% for key, book in books %}
+        <div class="col-sm-4 col-md-3">
+            <div class="list-item">
+                <div class="book-cover book-cover--small-size">
+                    <a href="{{ path('book_show', {'id': book.id}) }}">
+                        <img class="img-thumbnail" src="{{ asset(book.getCover(), 'cover') }}" alt="">
+                    </a>
+                </div>
+                <h3><a href="{{ path('book_show', {'id': book.id}) }}">{{ book.getTitle() }}</a></h3>
+            </div>
+        </div>
+
+        {% if (key + 1) % 4 == 0 %}
+            </div>
+            <div class="row">
+        {% endif %}
+    {% endfor %}
+    </div>
+
+{% endblock %}

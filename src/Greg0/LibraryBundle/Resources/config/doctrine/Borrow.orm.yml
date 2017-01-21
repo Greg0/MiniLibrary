@@ -1,0 +1,46 @@
+Greg0\LibraryBundle\Entity\Borrow:
+    type: entity
+    table: null
+    repositoryClass: Greg0\LibraryBundle\Repository\BorrowRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        status:
+            type: string
+            length: '100'
+    manyToOne:
+        book:
+            targetEntity: Book
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                book_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        requestUser:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                request_user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        targetUser:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                target_user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

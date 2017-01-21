@@ -5,3 +5,12 @@ topnav:
     browse_library: 'Szukaj książek'
 profile:
     my_library: 'Moja bilbioteka'
+    borrows: 'Wypożyczone książki'
+book:
+    description: 'Opis'
+    owners: 'Użytkownicy, którzy posiadają tę książkę'
+    borrow: 'Wypożycz'
+
+owner:
+    no_records: 'Brak użytkowników mogących wypożyczyć tę książkę'
+    browse_library: 'Zobacz książki'
