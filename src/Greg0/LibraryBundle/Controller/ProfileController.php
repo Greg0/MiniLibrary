@@ -9,7 +9,12 @@
 namespace Greg0\LibraryBundle\Controller;
 
 
-class ProfileController
-{
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+class ProfileController extends Controller
+{
+    public function booksAction()
+    {
+
+    }
 }

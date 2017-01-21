@@ -14,3 +14,6 @@ book:
 owner:
     no_records: 'Brak użytkowników mogących wypożyczyć tę książkę'
     browse_library: 'Zobacz książki'
+
+user_message:
+    you_are_owner: 'Posiadasz tę książkę'

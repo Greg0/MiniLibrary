@@ -32,7 +32,11 @@ class BookController extends Controller
         $loggedUser = $this->container->get('security.token_storage')->getToken()->getUser();
 
         /** @var User[] $owners */
-        $owners = $book->getUser()->filter(function ($user) use($loggedUser) {
+        $allOwners = $book->getUser();
+        $userOwnBook = $book->hasUser($loggedUser);
+
+        $owners = $allOwners->filter(function ($user) use ($loggedUser) {
+            /** @var User $user */
             return $user->getId() !== $loggedUser->getId();
         });
 
@@ -40,6 +44,7 @@ class BookController extends Controller
             'book' => $book,
             'authors' => $authors,
             'owners' => $owners,
+            'userOwnBook' => $userOwnBook,
         ]);
     }
 }

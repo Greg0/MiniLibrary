@@ -10,8 +10,15 @@
                     <a href="{{ path('book_show', {'id': book.id}) }}">
                         <img class="img-thumbnail" src="{{ asset(book.getCover(), 'cover') }}" alt="">
                     </a>
+                    <div class="cover-hover">
+                        {% if book.hasUser(app.user) %}
+                            <span class="label label-success">{{ 'user_message.you_are_owner'|trans({}, 'LibraryBundle') }}</span>
+                        {% endif %}
+                    </div>
                 </div>
-                <h3><a href="{{ path('book_show', {'id': book.id}) }}">{{ book.getTitle() }}</a></h3>
+                <h3>
+                    <a href="{{ path('book_show', {'id': book.id}) }}">{{ book.getTitle() }}</a>
+                </h3>
             </div>
         </div>
 

@@ -3,6 +3,7 @@
 namespace Greg0\LibraryBundle\Entity;
 
 use Symfony\Component\HttpFoundation\File\File;
+
 /**
  * Book
  */
@@ -172,8 +173,7 @@ class Book
      */
     public function getCover()
     {
-        if (is_null($this->cover))
-        {
+        if (is_null($this->cover)) {
             return Book::NO_COVER_FILE;
         }
 
@@ -327,9 +327,18 @@ class Book
         return $this->coverFile;
     }
 
-    public function getCoverFullPath()
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function hasUser(User $user)
     {
+        $owners = $this->getUser()->filter(function ($element) use ($user) {
+            /** @var User $element */
+            return $user->getId() == $element->getId();
+        });
 
+        return $owners->count() > 0;
     }
 }
 

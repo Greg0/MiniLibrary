@@ -16,8 +16,15 @@
     <!-- Portfolio Item Row -->
     <div class="row">
 
-        <div class="col-md-3 book-cover--normal-size">
-            <img class="img-thumbnail" src="{{ asset(book.getCover(), 'cover') }}" alt="">
+        <div class="col-md-3 ">
+            <div class="book-cover book-cover--normal-size">
+                <img class="img-thumbnail" src="{{ asset(book.getCover(), 'cover') }}" alt="">
+                {% if userOwnBook %}
+                    <div class="cover-hover">
+                        <h4><span class="label label-success">{{ 'user_message.you_are_owner'|trans({}, 'LibraryBundle') }}</span></h4>
+                    </div>
+                {% endif %}
+            </div>
         </div>
 
         <div class="col-md-5">
@@ -40,8 +47,12 @@
                             <div class="list-group-item">
                                 <h4 class="list-group-item-heading">{{ owner.getUsername() }}</h4>
                                 <p class="list-group-item-text">
-                                    <a href="" class="btn btn-primary">{{ 'book.borrow'|trans({}, 'LibraryBundle') }}</a>
-                                    <a href="" class="btn btn-default">{{ 'owner.browse_library'|trans({}, 'LibraryBundle') }}</a>
+                                    {% if userOwnBook == false %}
+                                        <a href=""
+                                           class="btn btn-primary">{{ 'book.borrow'|trans({}, 'LibraryBundle') }}</a>
+                                    {% endif %}
+                                    <a href=""
+                                       class="btn btn-default">{{ 'owner.browse_library'|trans({}, 'LibraryBundle') }}</a>
                                 </p>
                             </div>
                         </div>
