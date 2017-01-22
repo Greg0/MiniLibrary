@@ -1,0 +1,27 @@
+{% extends 'LibraryBundle:Profile:layout.html.twig' %}
+{% block profile_body %}
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th class="col-md-1">{{ 'book.cover'|trans({}, 'LibraryBundle') }}</th>
+            <th class="col-md-5">{{ 'book.title'|trans({}, 'LibraryBundle') }}</th>
+            <th class="col-md-2">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</th>
+            <th class="col-md-2">{{ 'request.status'|trans({}, 'LibraryBundle') }}</th>
+            <th class="col-md-2">{{ 'common.mark_as'|trans({}, 'LibraryBundle') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for request in requests %}
+            <tr>
+                <td><img class="img-thumbnail cover-mini" src="{{ asset(request.book.getCover(), 'cover') }}" alt=""></td>
+                <td><a href="{{ path('book_show', {id: request.book.id}) }}">{{ request.book.title }}</a></td>
+                <td>{{ request.targetUser.getFullName() }}</td>
+                <td class="text-center">{% include '@Library/Profile/request/status.html.twig' with {status:request.status, entity: request} %}</td>
+                <td>{% include '@Library/Profile/request/actions.html.twig' with {request: request, entity: request} %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

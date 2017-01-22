@@ -12,6 +12,10 @@ Greg0\LibraryBundle\Entity\Borrow:
         status:
             type: string
             length: '100'
+        archived:
+            type: boolean
+            options:
+                default: 0
     manyToOne:
         book:
             targetEntity: Book
@@ -43,4 +47,5 @@ Greg0\LibraryBundle\Entity\Borrow:
                 target_user_id:
                     referencedColumnName: id
             orphanRemoval: false
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        prePersist: [ checkUniqueOnPrePersist ]

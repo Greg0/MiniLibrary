@@ -1,0 +1,20 @@
+{% trans_default_domain "LibraryBundle" %}
+{% set labelType = 'default' %}
+{% set availableStates = request.getAvailableStatesForUser(app.user) %}
+
+{% for status in availableStates %}
+
+    {% if status == constant('STATUS_WAITING', entity) %}
+        {% set labelType = 'info' %}
+    {% elseif status == constant('STATUS_CLOSED', entity) %}
+        {% set labelType = 'danger' %}
+    {% elseif status == constant('STATUS_REFUSED', entity) %}
+        {% set labelType = 'warning' %}
+    {% elseif status == constant('STATUS_ACCEPTED', entity) %}
+        {% set labelType = 'success' %}
+    {% elseif status == constant('STATUS_BORROWED', entity) %}
+        {% set labelType = 'success' %}
+    {% endif %}
+
+    <a href="{{ path('request_change_status', {requestId: entity.id, status: status} ) }}" class="btn btn-xs btn-{{ labelType }}">{{ ('request.status_' ~ status)|trans({}, 'LibraryBundle') }}</a>
+{% endfor %}

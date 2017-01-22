@@ -2,28 +2,38 @@
 
 namespace Greg0\LibraryBundle\Entity;
 
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Greg0\LibraryBundle\Validator\RequestStateValidator;
+
 /**
  * Borrow
  */
 class Borrow
 {
+    const STATUS_WAITING  = 'waiting';
+    const STATUS_REFUSED  = 'refused';
+    const STATUS_ACCEPTED = 'accepted';
+    const STATUS_BORROWED = 'borrowed';
+    const STATUS_CLOSED   = 'closed';
+
     /**
      * @var int
      */
     private $id;
 
     /**
-     * @var \stdClass
+     * @var User
      */
     private $requestUser;
 
     /**
-     * @var \stdClass
+     * @var User
      */
     private $targetUser;
 
     /**
-     * @var \stdClass
+     * @var Book
      */
     private $book;
 
@@ -31,6 +41,9 @@ class Borrow
      * @var string
      */
     private $status;
+
+    /** @var boolean */
+    private $archived;
 
 
     /**
@@ -46,7 +59,7 @@ class Borrow
     /**
      * Set requestUser
      *
-     * @param \stdClass $requestUser
+     * @param User $requestUser
      *
      * @return Borrow
      */
@@ -60,7 +73,7 @@ class Borrow
     /**
      * Get requestUser
      *
-     * @return \stdClass
+     * @return User
      */
     public function getRequestUser()
     {
@@ -70,7 +83,7 @@ class Borrow
     /**
      * Set targetUser
      *
-     * @param \stdClass $targetUser
+     * @param User $targetUser
      *
      * @return Borrow
      */
@@ -84,7 +97,7 @@ class Borrow
     /**
      * Get targetUser
      *
-     * @return \stdClass
+     * @return User
      */
     public function getTargetUser()
     {
@@ -94,11 +107,11 @@ class Borrow
     /**
      * Set book
      *
-     * @param \stdClass $book
+     * @param Book $book
      *
      * @return Borrow
      */
-    public function setBook($book)
+    public function setBook(Book $book)
     {
         $this->book = $book;
 
@@ -108,7 +121,7 @@ class Borrow
     /**
      * Get book
      *
-     * @return \stdClass
+     * @return Book
      */
     public function getBook()
     {
@@ -137,6 +150,106 @@ class Borrow
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getAllStates()
+    {
+        return [
+            Borrow::STATUS_WAITING,
+            Borrow::STATUS_REFUSED,
+            Borrow::STATUS_ACCEPTED,
+            Borrow::STATUS_BORROWED,
+            Borrow::STATUS_CLOSED,
+        ];
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isArchived()
+    {
+        return $this->archived;
+    }
+
+    /**
+     * @param boolean $archived
+     */
+    public function setIsArchived($archived)
+    {
+        $this->archived = $archived;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isWaiting()
+    {
+        return $this->getStatus() == Borrow::STATUS_WAITING;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRefused()
+    {
+        return $this->getStatus() == Borrow::STATUS_REFUSED;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAccepted()
+    {
+        return $this->getStatus() == Borrow::STATUS_ACCEPTED;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBorrowed()
+    {
+        return $this->getStatus() == Borrow::STATUS_BORROWED;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isClosed()
+    {
+        return $this->getStatus() == Borrow::STATUS_CLOSED;
+    }
+
+    /**
+     * @param User $user
+     * @return array
+     */
+    public function getAvailableStatesForUser(User $user)
+    {
+        $validator = new RequestStateValidator($this);
+
+        return $validator->getAvailableStatesToChangeForUser($user);
+    }
+
+    public function checkUniqueOnPrePersist(LifecycleEventArgs $eventArgs)
+    {
+        if ($this->isClosed() == false)
+        {
+            $borrows = $eventArgs->getObjectManager()->getRepository('LibraryBundle:Borrow')->findBy([
+                'book'        => $this->book,
+                'requestUser' => $this->requestUser,
+                'archived'    => 0,
+            ]);
+
+            if (count($borrows))
+            {
+                throw new \Exception('');
+            }
+        }
+
     }
 }
 

@@ -67,7 +67,7 @@ class Book
     public function __construct()
     {
         $this->author = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->books = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->books  = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -173,7 +173,8 @@ class Book
      */
     public function getCover()
     {
-        if (is_null($this->cover)) {
+        if (is_null($this->cover))
+        {
             return Book::NO_COVER_FILE;
         }
 
@@ -314,7 +315,8 @@ class Book
     {
         $this->coverFile = $cover;
 
-        if ($cover) {
+        if ($cover)
+        {
             $this->updatedAt = new \DateTime('now');
         }
     }
@@ -333,7 +335,8 @@ class Book
      */
     public function hasUser(User $user)
     {
-        $owners = $this->getUser()->filter(function ($element) use ($user) {
+        $owners = $this->getUser()->filter(function ($element) use ($user)
+        {
             /** @var User $element */
             return $user->getId() == $element->getId();
         });

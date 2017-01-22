@@ -10,10 +10,10 @@ class BookController extends Controller
 {
     public function indexAction()
     {
-        $books = $this->getDoctrine()->getRepository('LibraryBundle:Book')->findAll();
+        $books = $this->getDoctrine()->getRepository('LibraryBundle:Book')->findAllOrderedByTitle();
 
         return $this->render('LibraryBundle:Book:index.html.twig', [
-            'books' => $books
+            'books' => $books,
         ]);
     }
 
@@ -22,7 +22,8 @@ class BookController extends Controller
         /** @var Book $book */
         $book = $this->getDoctrine()->getRepository('LibraryBundle:Book')->find($id);
 
-        if (is_null($book)) {
+        if (is_null($book))
+        {
             throw $this->createNotFoundException('The book does not exist');
         }
 
@@ -32,18 +33,19 @@ class BookController extends Controller
         $loggedUser = $this->container->get('security.token_storage')->getToken()->getUser();
 
         /** @var User[] $owners */
-        $allOwners = $book->getUser();
+        $allOwners   = $book->getUser();
         $userOwnBook = $book->hasUser($loggedUser);
 
-        $owners = $allOwners->filter(function ($user) use ($loggedUser) {
+        $owners = $allOwners->filter(function ($user) use ($loggedUser)
+        {
             /** @var User $user */
             return $user->getId() !== $loggedUser->getId();
         });
 
         return $this->render('LibraryBundle:Book:show.html.twig', [
-            'book' => $book,
-            'authors' => $authors,
-            'owners' => $owners,
+            'book'        => $book,
+            'authors'     => $authors,
+            'owners'      => $owners,
             'userOwnBook' => $userOwnBook,
         ]);
     }

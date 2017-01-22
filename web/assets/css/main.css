@@ -119,3 +119,7 @@ img.book-cover.book-cover--small-size, .book-cover.book-cover--small-size img {
 img.book-cover.book-cover--normal-size, .book-cover.book-cover--normal-size img {
     width: 220px;
 }
+
+img.cover-mini {
+    max-width: 50px;
+}

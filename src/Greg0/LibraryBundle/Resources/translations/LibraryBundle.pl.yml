@@ -5,15 +5,36 @@ topnav:
     browse_library: 'Szukaj książek'
 profile:
     my_library: 'Moja bilbioteka'
-    borrows: 'Wypożyczone książki'
+    create_book: 'Dodaj nową książkę'
+    add_book: 'Dodaj do swojej biblioteki'
+    remove_book: 'Usuń książkę'
+    requests_incoming: 'Zgłoszenia: Przychodzące'
+    requests_outgoing: 'Zgłoszenia: Wysłane'
 book:
     description: 'Opis'
     owners: 'Użytkownicy, którzy posiadają tę książkę'
     borrow: 'Wypożycz'
-
+    title: 'Tytuł'
+    cover: 'Okładka'
 owner:
     no_records: 'Brak użytkowników mogących wypożyczyć tę książkę'
     browse_library: 'Zobacz książki'
 
 user_message:
     you_are_owner: 'Posiadasz tę książkę'
+    book_added: 'Dodano książkę title'
+    book_removed: 'Usunięto książkę title'
+    book_already_requested: 'Już wysłałeś prośbę o tę książkę!'
+    book_requested: 'Wysłano prośbę o wypożyczenie książki. Status możesz zobaczyć w swoim profilu'
+    request_status_changed: 'Zmieniono stan zgłoszenia'
+request:
+    status: 'Status'
+    status_waiting: 'Oczekuje'
+    status_refused: 'Odrzucone'
+    status_accepted: 'Zaakceptowane'
+    status_borrowed: 'W wypożyczeniu'
+    status_closed:  'Zamknięte'
+common:
+    actions: 'Akcje'
+    mark_as: 'Oznacz jako'
+    no_privileges: 'Brak uprawnień'

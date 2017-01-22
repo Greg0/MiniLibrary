@@ -116,9 +116,10 @@ class LoadBookData extends AbstractFixture implements OrderedFixtureInterface
         $tempBook->addAuthor($this->getReference('author6'));
         $book[] = $tempBook;
 
-        foreach ($book as $key => $item) {
+        foreach ($book as $key => $item)
+        {
             $manager->persist($item);
-            $this->addReference('book'.($key+1), $item);
+            $this->addReference('book' . ($key + 1), $item);
         }
 
         $manager->flush();

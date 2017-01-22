@@ -12,9 +12,24 @@ book_index:
 book_show:
     path: /book/{id}
     defaults: { _controller: LibraryBundle:Book:show }
-book_cover:
-    path: /book/cover/{filename}
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path: %app.path.book_covers%/
-        permament: true
+profile_library:
+    path: /profile/library
+    defaults: { _controller: LibraryBundle:Profile:library }
+profile_borrows:
+    path: /profile/my_borrows
+    defaults: { _controller: LibraryBundle:Profile:myBorrows }
+profile_requests:
+      path: /profile/incoming_borrows
+      defaults: { _controller: LibraryBundle:Profile:incomingBorrows }
+profile_add_book:
+    path: /profile/add_book/{bookId}
+    defaults: { _controller: LibraryBundle:Profile:addBook }
+profile_remove_book:
+    path: /profile/remove_book/{bookId}
+    defaults: { _controller: LibraryBundle:Profile:removeBook }
+borrow_book:
+    path: /book/borrow/{userId}/{bookId}
+    defaults: { _controller: LibraryBundle:Borrow:requestBook }
+request_change_status:
+    path: /borrow/change_state/{requestId}/{status}
+    defaults: { _controller: LibraryBundle:Borrow:changeStatus }

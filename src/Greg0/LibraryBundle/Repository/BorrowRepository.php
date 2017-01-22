@@ -2,6 +2,8 @@
 
 namespace Greg0\LibraryBundle\Repository;
 
+use Greg0\LibraryBundle\Entity\User;
+
 /**
  * BorrowRepository
  *
@@ -10,4 +12,13 @@ namespace Greg0\LibraryBundle\Repository;
  */
 class BorrowRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllForRequestUser(User $user)
+    {
+        return $this->findBy(['requestUser' => $user], ['id' => 'DESC']);
+    }
+
+    public function findAllForTargetUser(User $user)
+    {
+        return $this->findBy(['targetUser' => $user], ['id' => 'DESC']);
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace Greg0\LibraryBundle\Entity;
+
 use Greg0\LibraryBundle\Formatter\AuthorNameFormatter;
 
 /**

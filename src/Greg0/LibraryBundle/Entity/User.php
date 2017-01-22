@@ -66,4 +66,9 @@ class User extends BaseUser
     {
         return $this->books;
     }
+
+    public function getFullName()
+    {
+        return $this->getUsername();
+    }
 }
