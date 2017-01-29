@@ -25,6 +25,16 @@ class User extends BaseUser
     protected $groups;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $outgoingBorrows;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $incomingBorrows;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -71,4 +81,21 @@ class User extends BaseUser
     {
         return $this->getUsername();
     }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOutgoingBorrows()
+    {
+        return $this->outgoingBorrows;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIncomingBorrows()
+    {
+        return $this->incomingBorrows;
+    }
+
 }

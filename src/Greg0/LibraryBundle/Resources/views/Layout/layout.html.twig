@@ -4,11 +4,12 @@
 <head>
     <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/dark_nav.css') }}">
 </head>
 
 <body>
 <!-- Navigation -->
-<nav class="navbar navbar-inverse" role="navigation">
+<nav class="navbar navbar-inverse bs-dark" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -25,21 +26,48 @@
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="{{ path('book_index') }}">{{ 'topnav.browse_library'|trans({},'LibraryBundle') }}</a></li>
             </ul>
+
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">
+                        <span class="glyphicon glyphicon-user"></span>
                         {{ app.user.getFullName() }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ path('profile_library') }}">{{ 'profile.my_library'|trans({},'LibraryBundle') }}
-                                <span class="badge">{{ app.user.books.count() }}</span></a></li>
                         <li>
-                            <a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+                            <a href="{{ path('profile_library') }}">
+                                {{ 'profile.my_library'|trans({},'LibraryBundle') }}
+                                <span class="badge">{{ app.user.books.count() }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('profile_borrows') }}">
+                                {{ 'profile.requests_outgoing'|trans({}, 'LibraryBundle') }}
+                                <span class="badge">{{ app.user.outgoingBorrows.count() }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('profile_requests') }}">
+                                {{ 'profile.requests_incoming'|trans({}, 'LibraryBundle') }}
+                                <span class="badge">{{ app.user.incomingBorrows.count() }}</span>
+                            </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                <span class="glyphicon glyphicon-log-out"></span>
+                                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
                         </li>
                     </ul>
                 </li>
             </ul>
+            <form class="navbar-form navbar-right">
+                <div class="input-group">
+                    <input type="text" class="search-box" placeholder="Search">
+                    <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </form>
         </div>
     </div><!--
         <!-- /.navbar-collapse -->

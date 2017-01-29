@@ -2,7 +2,7 @@ main:
     app_name: 'Book Share'
     menu: 'Menu'
 topnav:
-    browse_library: 'Szukaj książek'
+    browse_library: 'Przeglądaj książki'
 profile:
     my_library: 'Moja bilbioteka'
     create_book: 'Dodaj nową książkę'

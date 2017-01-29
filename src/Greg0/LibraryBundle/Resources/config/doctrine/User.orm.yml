@@ -8,6 +8,13 @@ Greg0\LibraryBundle\Entity\User:
             id: true
             generator:
                 strategy: AUTO
+    oneToMany:
+        outgoingBorrows:
+            targetEntity: Borrow
+            mappedBy: requestUser
+        incomingBorrows:
+            targetEntity: Borrow
+            mappedBy: targetUser
     manyToMany:
         books:
             targetEntity: Book

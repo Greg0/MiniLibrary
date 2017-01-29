@@ -17,13 +17,16 @@
                     </a>
                     <a href="{{ path('profile_borrows') }}"
                        class="list-group-item {% if menu_selected == 'borrows' %}active{% endif %}">
+                        <span class="badge">{{ app.user.outgoingBorrows.count() }}</span>
                         {{ 'profile.requests_outgoing'|trans({}, 'LibraryBundle') }}
                     </a>
                     <a href="{{ path('profile_requests') }}"
                        class="list-group-item {% if menu_selected == 'requests' %}active{% endif %}">
+                        <span class="badge">{{ app.user.incomingBorrows.count() }}</span>
                         {{ 'profile.requests_incoming'|trans({}, 'LibraryBundle') }}
                     </a>
                     <a href="{{ path('fos_user_security_logout') }}" class="list-group-item">
+                        <span class="glyphicon glyphicon-log-out"></span>
                         {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                     </a>
                 </div>

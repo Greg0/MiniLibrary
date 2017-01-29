@@ -251,5 +251,10 @@ class Borrow
         }
 
     }
+
+    public function __toString()
+    {
+        return $this->getStatus();
+    }
 }
 
