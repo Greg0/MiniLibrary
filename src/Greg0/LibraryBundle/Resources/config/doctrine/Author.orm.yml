@@ -1,0 +1,43 @@
+Greg0\LibraryBundle\Entity\Author:
+    type: entity
+    table: author
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        firstName:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: first_name
+        lastName:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: last_name
+        description:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+    manyToMany:
+        book:
+            targetEntity: Book
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: author
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

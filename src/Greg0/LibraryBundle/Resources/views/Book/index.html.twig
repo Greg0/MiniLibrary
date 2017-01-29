@@ -1,0 +1,35 @@
+{% extends 'LibraryBundle:Layout:layout.html.twig' %}
+
+{% block body %}
+
+    <div class="row">
+    {% for key, book in books %}
+        <div class="col-sm-4 col-md-3">
+            <div class="list-item">
+                <div class="book-cover book-cover--small-size">
+                    <a href="{{ path('book_show', {'id': book.id}) }}">
+                        <img class="img-thumbnail" src="{{ asset(book.getCover(), 'cover') }}" alt="">
+                    </a>
+                    <div class="cover-hover">
+                        {% if book.hasUser(app.user) %}
+                            <span class="label label-success">{{ 'user_message.you_are_owner'|trans({}, 'LibraryBundle') }}</span>
+                        {% else %}
+                            <a href="{{ path('profile_add_book', {bookId: book.id}) }}"
+                               class="btn btn-xs btn-info">{{ 'profile.add_book'|trans({}, 'LibraryBundle') }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <h3>
+                    <a href="{{ path('book_show', {'id': book.id}) }}">{{ book.getTitle() }}</a>
+                </h3>
+            </div>
+        </div>
+
+        {% if (key + 1) % 4 == 0 %}
+            </div>
+            <div class="row">
+        {% endif %}
+    {% endfor %}
+    </div>
+
+{% endblock %}

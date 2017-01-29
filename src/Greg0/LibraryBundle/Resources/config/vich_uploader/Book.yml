@@ -1,0 +1,4 @@
+Greg0\LibraryBundle\Entity\Book:
+    cover_file:
+        mapping:           book_covers
+        filename_property: cover

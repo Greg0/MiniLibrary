@@ -1,0 +1,68 @@
+{% extends 'LibraryBundle:Layout:layout.html.twig' %}
+
+{% block body %}
+
+
+    <!-- Portfolio Item Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ book.getTitle() }}
+                <small>{{ authors }}</small>
+            </h1>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Portfolio Item Row -->
+    <div class="row">
+
+        <div class="col-md-3 ">
+            <div class="book-cover book-cover--normal-size">
+                <img class="img-thumbnail" src="{{ asset(book.getCover(), 'cover') }}" alt="">
+                {% if userOwnBook %}
+                    <div class="cover-hover">
+                        <h4>
+                            <span class="label label-success">{{ 'user_message.you_are_owner'|trans({}, 'LibraryBundle') }}</span>
+                        </h4>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <h3>{{ 'book.description'|trans({}, 'LibraryBundle') }}</h3>
+            <p><strong>{{ book.shortDescription() }}</strong></p>
+            <p>{{ book.description() }}</p>
+        </div>
+
+        <div class="col-md-4 well well-sm">
+            <div class="panel panel-default">
+                <div class="panel-heading">{{ 'book.owners'|trans({}, 'LibraryBundle') }}</div>
+                {% if owners.count() == 0 %}
+                    <div class="panel-body">
+                        {{ 'owner.no_records'|trans({}, 'LibraryBundle') }}
+                    </div>
+                {% endif %}
+                {% for owner in owners %}
+                    {% if owner.id != app.user.id %}
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <h4 class="list-group-item-heading">{{ owner.getFullName() }}</h4>
+                                <p class="list-group-item-text">
+                                    {% if userOwnBook == false %}
+                                        <a href="{{ path('borrow_book', {bookId : book.id, userId : owner.id}) }}"
+                                           class="btn btn-primary">{{ 'book.borrow'|trans({}, 'LibraryBundle') }}</a>
+                                    {% endif %}
+                                    <a href=""
+                                       class="btn btn-default">{{ 'owner.browse_library'|trans({}, 'LibraryBundle') }}</a>
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+{% endblock %}

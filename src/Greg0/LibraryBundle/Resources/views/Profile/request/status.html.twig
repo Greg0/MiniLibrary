@@ -1,0 +1,15 @@
+{% trans_default_domain "LibraryBundle" %}
+{% set labelType = 'default' %}
+
+{% if status == constant('STATUS_WAITING', entity) %}
+    {% set labelType = 'info' %}
+{% elseif status == constant('STATUS_CLOSED', entity) %}
+    {% set labelType = 'danger' %}
+{% elseif status == constant('STATUS_REFUSED', entity) %}
+    {% set labelType = 'warning' %}
+{% elseif status == constant('STATUS_ACCEPTED', entity) %}
+    {% set labelType = 'success' %}
+{% elseif status == constant('STATUS_BORROWED', entity) %}
+    {% set labelType = 'success' %}
+{% endif %}
+<span class="label label-{{ labelType }}">{{ ('request.status_' ~ status)|trans({}, 'LibraryBundle') }}</span>

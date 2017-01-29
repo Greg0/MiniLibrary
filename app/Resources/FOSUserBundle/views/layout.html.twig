@@ -1,0 +1,31 @@
+{# app/Resources/views/layout.html.twig #}
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+</head>
+
+<body>
+
+
+{% if app.request.hasPreviousSession %}
+    {% for type, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="flash-{{ type }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+<div>
+    {% block fos_user_content %}
+    {% endblock fos_user_content %}
+</div>
+
+<script src="{{ asset('assets/vendor/jquery/dist/core.js') }}"></script>
+<script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+</body>
+</html>
