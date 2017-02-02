@@ -12,6 +12,11 @@ book_index:
 book_show:
     path: /book/{id}
     defaults: { _controller: LibraryBundle:Book:show }
+book_search:
+    path: /search.{_format}
+    defaults: { _controller: LibraryBundle:Book:search, _format: html }
+    requirements:
+        _format:  html|json
 profile_library:
     path: /profile/library
     defaults: { _controller: LibraryBundle:Profile:library }
