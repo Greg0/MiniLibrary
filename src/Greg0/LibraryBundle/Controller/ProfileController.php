@@ -10,9 +10,14 @@ namespace Greg0\LibraryBundle\Controller;
 
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Greg0\LibraryBundle\Entity\Author;
+use Greg0\LibraryBundle\Entity\Book;
 use Greg0\LibraryBundle\Entity\User;
+use Greg0\LibraryBundle\Form\AuthorType;
+use Greg0\LibraryBundle\Form\BookType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProfileController extends Controller
 {
@@ -103,6 +108,33 @@ class ProfileController extends Controller
         return $this->render('@Library/Profile/requests_outgoing.html.twig', [
             'requests' => $requests,
             'menu_selected' => 'requests'
+        ]);
+    }
+
+    public function createBookAction(Request $request = null)
+    {
+        $book = new Book();
+        $author = new Author();
+        $form = $this->createForm(BookType::class, $book);
+        $authorForm = $this->createForm(AuthorType::class, $author);
+        if ($request->isMethod('POST'))
+        {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $book = $form->getData();
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($book);
+                $em->flush();
+
+                return $this->redirectToRoute('profile_create_book');
+            }
+        }
+
+        return $this->render('@Library/Profile/create_book.html.twig', [
+            'form' => $form->createView(),
+            'authorForm' => $authorForm->createView(),
         ]);
     }
 }

@@ -74,4 +74,23 @@ class BookController extends Controller
             'books' => $books,
         ]);
     }
+
+    public function searchAuthorAction(Request $request)
+    {
+        $searchKeyword = $request->get('search');
+        $searchKeyword = stripslashes($searchKeyword);
+        $searchKeyword = strip_tags($searchKeyword);
+
+        $books = $this->getDoctrine()->getRepository('LibraryBundle:Author')->findAllSearch($searchKeyword);
+
+
+        $returnArray = [];
+        foreach ($books as $book)
+        {
+            $returnArray[] = $book->getFullName();
+        }
+
+        return $this->json($returnArray);
+
+    }
 }

@@ -1,0 +1,14 @@
+{% extends 'LibraryBundle:Profile:layout.html.twig' %}
+{% set menu_selected = 'library' %}
+{% block profile_body %}
+    <div class="col-md-8">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+    <div class="col-md-4">
+        {{ form_start(authorForm) }}
+        {{ form_widget(authorForm) }}
+        {{ form_end(authorForm) }}
+    </div>
+{% endblock %}
