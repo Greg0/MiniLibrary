@@ -46,3 +46,11 @@ author:
 page_header:
     search_result: 'Wyniki wyszukiwania: query'
     user_library: 'Biblioteka użytkownika "fullname"'
+admin:
+    panel: 'Panel administracyjny'
+    reports: 'Zgłoszone błędy'
+author:
+    create_author: 'Dodaj autora'
+page_header:
+    search_result: 'Wyniki wyszukiwania: query'
+    user_library: 'Biblioteka użytkownika "fullname"'

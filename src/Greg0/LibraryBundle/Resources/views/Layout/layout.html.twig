@@ -51,15 +51,28 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ path('profile_requests') }}" {% if app.user.incomingBorrows.count() > 0 %}class="bg-danger"{% endif %}>
+                            <a href="{{ path('profile_requests') }}"
+                               {% if app.user.incomingBorrows.count() > 0 %}class="bg-danger"{% endif %}>
                                 {{ 'profile.requests_incoming'|trans({}, 'LibraryBundle') }}
                                 <span class="badge">{{ app.user.incomingBorrows.count() }}</span>
                             </a>
                         </li>
                         <li role="separator" class="divider"></li>
+                        {% if app.user.isSuperAdmin %}
+                            <li>
+                                <a href="{{ path('easyadmin') }}">
+                                    <span class="glyphicon glyphicon-flag"></span>
+                                    {{ 'admin.reports'|trans({}, 'LibraryBundle') }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('easyadmin') }}">
+                                    <span class="glyphicon glyphicon-lock"></span>
+                                    {{ 'admin.panel'|trans({}, 'LibraryBundle') }}</a>
+                            </li>
+                        {% endif %}
                         <li>
                             <a href="{{ path('fos_user_security_logout') }}">
-                                <span class="glyphicon glyphicon-log-out"></span>
+                                <span class="glyphicon glyphicon-off"></span>
                                 {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
                         </li>
                     </ul>
@@ -67,7 +80,8 @@
             </ul>
             <form class="navbar-form navbar-right" method="get" action="{{ path('book_search') }}">
                 <div class="input-group">
-                    <input type="text" name="search" class="search-box typeahead" placeholder="Search..." autocomplete="off">
+                    <input type="text" name="search" class="search-box typeahead" placeholder="Search..."
+                           autocomplete="off">
                     <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
                 </div>
             </form>
