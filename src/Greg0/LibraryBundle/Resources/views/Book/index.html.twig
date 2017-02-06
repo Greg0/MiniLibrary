@@ -1,5 +1,11 @@
 {% extends 'LibraryBundle:Layout:layout.html.twig' %}
 
+{% block header %}
+    {% if header is defined %}
+        <h2>{{ header }}</h2>
+    {% endif %}
+{% endblock %}
+
 {% block body %}
 
     <div class="row">

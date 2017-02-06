@@ -70,7 +70,10 @@ class BookController extends Controller
             return $this->json($returnArray);
         }
 
+        $header = $this->get('translator')->trans('page_header.search_result', ['query' => $searchKeyword], 'LibraryBundle');
+
         return $this->render('LibraryBundle:Book:index.html.twig', [
+            'header' => $header,
             'books' => $books,
         ]);
     }

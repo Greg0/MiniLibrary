@@ -30,7 +30,7 @@ class BorrowController extends Controller
 
         if (is_null($book) || is_null($targetUser))
         {
-            return $this->createNotFoundException('');
+            throw $this->createNotFoundException('');
         }
 
         if ($book->hasUser($targetUser) == false)
@@ -72,7 +72,7 @@ class BorrowController extends Controller
 
         if (is_null($borrow))
         {
-            return $this->createNotFoundException('');
+            throw $this->createNotFoundException('');
         }
 
         $stateChanger = new RequestStateChanger($borrow, $this->getDoctrine()->getManager());

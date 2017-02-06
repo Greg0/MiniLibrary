@@ -3,6 +3,7 @@
 namespace Greg0\LibraryBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,11 +17,20 @@ class BookType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('shortDescription')
-            ->add('description')
-            ->add('cover')
-            ->add('author')
+            ->add('title', null, ['label' => 'Tytuł'])
+            ->add('shortDescription', null, ['label' => 'Skrócony opis'])
+            ->add('description', null, ['label' => 'Opis'])
+            ->add('coverFile', FileType::class, array(
+                'label'         => 'Okładka',
+                'data_class'    => 'Symfony\Component\HttpFoundation\File\File',
+                'property_path' => 'coverFile',
+            ))
+            ->add('author', null, [
+                'label' => 'Autorzy',
+                'attr' => [
+                    'class' => 'selectpicker',
+                ],
+            ])
             ->add('save', SubmitType::class);
     }
 

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/dark_nav.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/tagsinput.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/tagsinput-bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-select.min.css') }}">
 </head>
 
 <body>
@@ -92,6 +93,7 @@
             {% endfor %}
         </div>
     </div>
+    {% block header %} {% endblock %}
     {% block body %} {% endblock %}
 </div>
 <!-- /.container -->
@@ -118,6 +120,7 @@
 <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap3-typeahead.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap-tagsinput.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 </html>

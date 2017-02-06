@@ -46,3 +46,6 @@ borrow_book:
 request_change_status:
     path: /borrow/change_state/{requestId}/{status}
     defaults: { _controller: LibraryBundle:Borrow:changeStatus }
+user_books:
+    path: /user_books/{userId}
+    defaults: { _controller: LibraryBundle:Profile:userLibrary }

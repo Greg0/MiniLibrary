@@ -16,23 +16,38 @@
     <!-- Portfolio Item Row -->
     <div class="row">
 
-        <div class="col-md-3 ">
-            <div class="book-cover book-cover--normal-size">
-                <img class="img-thumbnail" src="{{ asset(book.getCover(), 'cover') }}" alt="">
-                {% if userOwnBook %}
-                    <div class="cover-hover">
-                        <h4>
-                            <span class="label label-success">{{ 'user_message.you_are_owner'|trans({}, 'LibraryBundle') }}</span>
-                        </h4>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-4 ">
+                    <div class="book-cover book-cover--normal-size">
+                        <img class="img-thumbnail" src="{{ asset(book.getCover(), 'cover') }}" alt="">
+                        <div class="cover-hover">
+                            {% if book.hasUser(app.user) %}
+                                <h4>
+                                    <span class="label label-success">{{ 'user_message.you_are_owner'|trans({}, 'LibraryBundle') }}</span>
+                                </h4>
+                            {% else %}
+                                <h4><a href="{{ path('profile_add_book', {bookId: book.id}) }}"
+                                       class="btn btn-xs btn-info">{{ 'profile.add_book'|trans({}, 'LibraryBundle') }}</a>
+                                </h4>
+                            {% endif %}
+                        </div>
                     </div>
-                {% endif %}
-            </div>
-        </div>
+                </div>
 
-        <div class="col-md-5">
-            <h3>{{ 'book.description'|trans({}, 'LibraryBundle') }}</h3>
-            <p><strong>{{ book.shortDescription() }}</strong></p>
-            <p>{{ book.description() }}</p>
+                <div class="col-md-8">
+                    <h3>{{ 'book.description'|trans({}, 'LibraryBundle') }}</h3>
+                    <p><strong>{{ book.shortDescription() }}</strong></p>
+                    <p>{{ book.description() }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5 report-buttons">
+                    <p>
+                    <a href="" class="btn btn-default btn-xs">Zgłoś administratorowi</a>
+                    </p>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-4 well well-sm">
@@ -53,7 +68,7 @@
                                         <a href="{{ path('borrow_book', {bookId : book.id, userId : owner.id}) }}"
                                            class="btn btn-primary">{{ 'book.borrow'|trans({}, 'LibraryBundle') }}</a>
                                     {% endif %}
-                                    <a href=""
+                                    <a href="{{ path('user_books', {userId : owner.id}) }}"
                                        class="btn btn-default">{{ 'owner.browse_library'|trans({}, 'LibraryBundle') }}</a>
                                 </p>
                             </div>

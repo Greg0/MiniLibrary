@@ -123,3 +123,8 @@ img.book-cover.book-cover--normal-size, .book-cover.book-cover--normal-size img 
 img.cover-mini {
     max-width: 50px;
 }
+
+.report-buttons {
+    margin-top: 30px;
+    padding: 0 50px;
+}
