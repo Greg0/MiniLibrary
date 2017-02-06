@@ -7,9 +7,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><h4>Menu</h4></div>
                 <div class="list-group">
-                    {#<a href="{{ path('profile_add_book') }}" class="list-group-item {% if menu_selected == 'new_book' %}active{% endif %}">#}
-                    {#{{ 'profile.add_book'|trans({}, 'LibraryBundle') }}#}
-                    {#</a>#}
+                    <a href="{{ path('profile_create_book') }}" class="list-group-item {% if menu_selected == 'new_book' %}active{% endif %}">
+                    {{ 'profile.create_book'|trans({}, 'LibraryBundle') }}
+                    </a>
                     <a href="{{ path('profile_library') }}"
                        class="list-group-item {% if menu_selected|default('library') == 'library' %}active{% endif %}">
                         <span class="badge">{{ app.user.books.count() }}</span>

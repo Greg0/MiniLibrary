@@ -10,9 +10,14 @@ namespace Greg0\LibraryBundle\Controller;
 
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Greg0\LibraryBundle\Entity\Author;
+use Greg0\LibraryBundle\Entity\Book;
 use Greg0\LibraryBundle\Entity\User;
+use Greg0\LibraryBundle\Form\AuthorType;
+use Greg0\LibraryBundle\Form\BookType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProfileController extends Controller
 {
@@ -41,7 +46,7 @@ class ProfileController extends Controller
 
         if (is_null($book))
         {
-            return $this->createNotFoundException('Book does not exists');
+            throw $this->createNotFoundException('Book does not exists');
         }
 
         try
@@ -66,7 +71,7 @@ class ProfileController extends Controller
 
         if (is_null($book))
         {
-            return $this->createNotFoundException('Book does not exists');
+            throw $this->createNotFoundException('Book does not exists');
         }
 
         try
@@ -104,5 +109,70 @@ class ProfileController extends Controller
             'requests' => $requests,
             'menu_selected' => 'requests'
         ]);
+    }
+
+    public function createBookAction(Request $request = null)
+    {
+        $book = new Book();
+        $author = new Author();
+        $bookForm = $this->createForm(BookType::class, $book);
+        $authorForm = $this->createForm(AuthorType::class, $author);
+        if ($request->isMethod('POST'))
+        {
+            $bookForm->handleRequest($request);
+            $authorForm->handleRequest($request);
+
+            if ($bookForm->isSubmitted() && $bookForm->isValid())
+            {
+                /** @var Book $book */
+                $book = $bookForm->getData();
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($book);
+                $em->flush();
+
+                $this->addFlash('success', $this->get('translator')->trans('user_message.book_created',
+                    ['title' => $book->getTitle()], 'LibraryBundle'));
+
+                return $this->redirectToRoute('profile_create_book');
+            }
+            elseif ($authorForm->isSubmitted() && $authorForm->isValid())
+            {
+                /** @var Author $author */
+                $author = $authorForm->getData();
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($author);
+                $em->flush();
+
+                $this->addFlash('success', $this->get('translator')->trans('user_message.author_created',
+                    ['fullname' => $author->getFullName()], 'LibraryBundle'));
+                return $this->redirectToRoute('profile_create_book');
+            }
+        }
+
+        return $this->render('@Library/Profile/create_book.html.twig', [
+            'form' => $bookForm->createView(),
+            'authorForm' => $authorForm->createView(),
+        ]);
+    }
+
+    public function userLibraryAction($userId)
+    {
+        /** @var User $user */
+        $user = $this->getDoctrine()->getRepository('LibraryBundle:User')->find($userId);
+        if (is_null($user))
+        {
+            throw $this->createNotFoundException('User does not exists');
+        }
+        $books = $user->getBooks();
+
+        $header = $this->get('translator')->trans('page_header.user_library', ['fullname' => $user->getFullName()], 'LibraryBundle');
+
+        return $this->render('LibraryBundle:Book:index.html.twig', [
+            'header' => $header,
+            'books' => $books,
+        ]);
+
     }
 }

@@ -1,0 +1,28 @@
+{% extends 'LibraryBundle:Profile:layout.html.twig' %}
+{% set menu_selected = 'library' %}
+{% block profile_body %}
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                {{ 'book.create_book'|trans({}, 'LibraryBundle') }}
+            </div>
+            <div class="panel-body">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {{ 'author.create_author'|trans({}, 'LibraryBundle') }}
+            </div>
+            <div class="panel-body">
+                {{ form_start(authorForm) }}
+                {{ form_widget(authorForm) }}
+                {{ form_end(authorForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

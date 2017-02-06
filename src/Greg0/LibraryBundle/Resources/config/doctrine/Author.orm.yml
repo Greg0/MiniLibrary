@@ -1,6 +1,7 @@
 Greg0\LibraryBundle\Entity\Author:
     type: entity
     table: author
+    repositoryClass: Greg0\LibraryBundle\Repository\AuthorRepository
     id:
         id:
             type: integer

@@ -12,6 +12,16 @@ book_index:
 book_show:
     path: /book/{id}
     defaults: { _controller: LibraryBundle:Book:show }
+book_search:
+    path: /search.{_format}
+    defaults: { _controller: LibraryBundle:Book:search, _format: html }
+    requirements:
+        _format:  html|json
+authors_search:
+    path: /authors.{_format}
+    defaults: { _controller: LibraryBundle:Book:searchAuthor, _format: json }
+    requirements:
+        _format:  json
 profile_library:
     path: /profile/library
     defaults: { _controller: LibraryBundle:Profile:library }
@@ -27,9 +37,15 @@ profile_add_book:
 profile_remove_book:
     path: /profile/remove_book/{bookId}
     defaults: { _controller: LibraryBundle:Profile:removeBook }
+profile_create_book:
+    path: /profile/create_book
+    defaults: { _controller: LibraryBundle:Profile:createBook }
 borrow_book:
     path: /book/borrow/{userId}/{bookId}
     defaults: { _controller: LibraryBundle:Borrow:requestBook }
 request_change_status:
     path: /borrow/change_state/{requestId}/{status}
     defaults: { _controller: LibraryBundle:Borrow:changeStatus }
+user_books:
+    path: /user_books/{userId}
+    defaults: { _controller: LibraryBundle:Profile:userLibrary }

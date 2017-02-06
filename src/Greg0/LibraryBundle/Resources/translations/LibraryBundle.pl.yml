@@ -16,6 +16,7 @@ book:
     borrow: 'Wypożycz'
     title: 'Tytuł'
     cover: 'Okładka'
+    create_book: 'Dodaj książkę'
 owner:
     no_records: 'Brak użytkowników mogących wypożyczyć tę książkę'
     browse_library: 'Zobacz książki'
@@ -27,6 +28,8 @@ user_message:
     book_already_requested: 'Już wysłałeś prośbę o tę książkę!'
     book_requested: 'Wysłano prośbę o wypożyczenie książki. Status możesz zobaczyć w swoim profilu'
     request_status_changed: 'Zmieniono stan zgłoszenia'
+    book_created: 'Utworzono książkę title'
+    author_created: 'Utworzono autora fullname'
 request:
     status: 'Status'
     status_waiting: 'Oczekuje'
@@ -38,3 +41,8 @@ common:
     actions: 'Akcje'
     mark_as: 'Oznacz jako'
     no_privileges: 'Brak uprawnień'
+author:
+    create_author: 'Dodaj autora'
+page_header:
+    search_result: 'Wyniki wyszukiwania: query'
+    user_library: 'Biblioteka użytkownika "fullname"'

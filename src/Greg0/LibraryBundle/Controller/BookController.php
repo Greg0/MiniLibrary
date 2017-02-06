@@ -5,6 +5,7 @@ namespace Greg0\LibraryBundle\Controller;
 use Greg0\LibraryBundle\Entity\Book;
 use Greg0\LibraryBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class BookController extends Controller
 {
@@ -48,5 +49,51 @@ class BookController extends Controller
             'owners'      => $owners,
             'userOwnBook' => $userOwnBook,
         ]);
+    }
+
+    public function searchAction(Request $request, $_format)
+    {
+        $searchKeyword = $request->get('search');
+        $searchKeyword = stripslashes($searchKeyword);
+        $searchKeyword = strip_tags($searchKeyword);
+
+        $books = $this->getDoctrine()->getRepository('LibraryBundle:Book')->findAllSearch($searchKeyword);
+
+        if ($_format == 'json')
+        {
+            $returnArray = [];
+            foreach ($books as $book)
+            {
+                $returnArray[] = $book->getTitle();
+            }
+
+            return $this->json($returnArray);
+        }
+
+        $header = $this->get('translator')->trans('page_header.search_result', ['query' => $searchKeyword], 'LibraryBundle');
+
+        return $this->render('LibraryBundle:Book:index.html.twig', [
+            'header' => $header,
+            'books' => $books,
+        ]);
+    }
+
+    public function searchAuthorAction(Request $request)
+    {
+        $searchKeyword = $request->get('search');
+        $searchKeyword = stripslashes($searchKeyword);
+        $searchKeyword = strip_tags($searchKeyword);
+
+        $books = $this->getDoctrine()->getRepository('LibraryBundle:Author')->findAllSearch($searchKeyword);
+
+
+        $returnArray = [];
+        foreach ($books as $book)
+        {
+            $returnArray[] = $book->getFullName();
+        }
+
+        return $this->json($returnArray);
+
     }
 }
