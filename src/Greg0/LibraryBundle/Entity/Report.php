@@ -27,6 +27,9 @@ class Report
      */
     private $message;
 
+    /** @var bool */
+    private $verified;
+
 
     /**
      * Get id
@@ -41,7 +44,7 @@ class Report
     /**
      * Set author
      *
-     * @param Author $author
+     * @param User $author
      *
      * @return Report
      */
@@ -55,7 +58,7 @@ class Report
     /**
      * Get author
      *
-     * @return Author
+     * @return User
      */
     public function getAuthor()
     {
@@ -109,5 +112,23 @@ class Report
     {
         return $this->message;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isVerified()
+    {
+        return $this->verified;
+    }
+
+    /**
+     * @param boolean $verified
+     */
+    public function setVerified($verified)
+    {
+        $this->verified = $verified;
+    }
+
+
 }
 

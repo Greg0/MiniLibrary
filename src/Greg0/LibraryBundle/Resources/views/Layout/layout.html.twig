@@ -60,12 +60,12 @@
                         <li role="separator" class="divider"></li>
                         {% if app.user.isSuperAdmin %}
                             <li>
-                                <a href="{{ path('easyadmin') }}">
+                                <a href="{{ path('report_list') }}">
                                     <span class="glyphicon glyphicon-flag"></span>
                                     {{ 'admin.reports'|trans({}, 'LibraryBundle') }}</a>
                             </li>
                             <li>
-                                <a href="{{ path('easyadmin') }}">
+                                <a href="{{ path('easyadmin') }}" target="_blank">
                                     <span class="glyphicon glyphicon-lock"></span>
                                     {{ 'admin.panel'|trans({}, 'LibraryBundle') }}</a>
                             </li>

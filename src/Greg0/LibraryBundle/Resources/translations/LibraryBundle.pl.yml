@@ -41,6 +41,9 @@ common:
     actions: 'Akcje'
     mark_as: 'Oznacz jako'
     no_privileges: 'Brak uprawnień'
+    yes: 'Tak'
+    no: 'Nie'
+    back: 'Powrót'
 author:
     create_author: 'Dodaj autora'
 page_header:
@@ -54,3 +57,10 @@ author:
 page_header:
     search_result: 'Wyniki wyszukiwania: query'
     user_library: 'Biblioteka użytkownika "fullname"'
+report:
+    sent: 'Zgłoszenie wysłane'
+    verified: 'Zweryfikowany'
+    author: 'Autor zgłoszenia'
+    message: 'Treść zgłoszenia'
+    mark_as_verified: 'Oznacz jako zweryfikowane'
+    book: 'Książka'

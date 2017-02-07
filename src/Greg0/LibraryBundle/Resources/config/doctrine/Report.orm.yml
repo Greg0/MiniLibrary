@@ -12,28 +12,11 @@ Greg0\LibraryBundle\Entity\Report:
         message:
             type: string
             length: 255
-    manyToOne:    manyToOne:
-                      book:
-                          targetEntity: Book
-                          cascade: {  }
-                          fetch: LAZY
-                          mappedBy: null
-                          inversedBy: null
-                          joinColumns:
-                              book_id:
-                                  referencedColumnName: id
-                          orphanRemoval: false
-                      requestUser:
-                          targetEntity: User
-                          cascade: {  }
-                          fetch: LAZY
-                          mappedBy: null
-                          inversedBy: null
-                          joinColumns:
-                              request_user_id:
-                                  referencedColumnName: id
-                          orphanRemoval: false
-
+        verified:
+            type: boolean
+            options:
+                default: 0
+    manyToOne:
         book:
             targetEntity: Book
             cascade: {  }
@@ -51,7 +34,7 @@ Greg0\LibraryBundle\Entity\Report:
             mappedBy: null
             inversedBy: null
             joinColumns:
-                author_id:
+                request_user_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }
