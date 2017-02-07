@@ -1,0 +1,40 @@
+Greg0\LibraryBundle\Entity\Report:
+    type: entity
+    table: null
+    repositoryClass: Greg0\LibraryBundle\Repository\ReportRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        message:
+            type: string
+            length: 255
+        verified:
+            type: boolean
+            options:
+                default: 0
+    manyToOne:
+        book:
+            targetEntity: Book
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                book_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        author:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                request_user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

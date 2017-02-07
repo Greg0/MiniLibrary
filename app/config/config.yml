@@ -1,0 +1,157 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: pl
+    app.path.book_covers: /uploads/images/book
+
+framework:
+    #esi:             ~
+    translator:      { fallbacks: ["%locale%"], paths: ['%kernel.root_dir%/../src/Greg0/LibraryBundle/Resources/translations'] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+    fragments:       ~
+    http_method_override: true
+    assets:
+        packages:
+            cover:
+                base_path: %app.path.book_covers%
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form_themes:      ['bootstrap_3_layout.html.twig']
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #     path:     "%database_path%"
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Greg0\LibraryBundle\Entity\User
+    group:
+        group_class: Greg0\LibraryBundle\Entity\Group
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        book_covers:
+            uri_prefix:         %app.path.book_covers%
+            upload_destination: %kernel.root_dir%/../web/uploads/images/book
+            namer:              vich_uploader.namer_uniqid
+
+easy_admin:
+    site_name: 'Book Share'
+    entities:
+        User:
+            class: Greg0\LibraryBundle\Entity\User
+            controller: Greg0\LibraryBundle\Controller\UserAdminController
+            list:
+                fields: ['id', 'username', 'firstName', 'lastName', 'email', 'last_login', 'enabled']
+            edit:
+                fields:
+                    - username
+                    - firstName
+                    - lastName
+                    - email
+                    - enabled
+                    - groups
+                    # if administrators are allowed to edit users' passwords and roles, add this:
+                    - { property: 'plainPassword', type: 'password', type_options: { required: false } }
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }
+                form_options: { validation_groups: ['Profile'] }
+            new:
+                fields:
+                    - username
+                    - email
+                    - enabled
+                    # if administrators are allowed to edit users' passwords and roles, add this:
+                    - { property: 'plainPassword', type: 'password', type_options: { required: true } }
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }
+                form_options: { validation_groups: ['Registration'] }
+        Group:
+            class: Greg0\LibraryBundle\Entity\Group
+            controller: Greg0\LibraryBundle\Controller\GroupAdminController
+            list:
+                fields: ['id', 'name']
+            edit:
+                fields:
+                    - name
+                    # if administrators are allowed to edit users' passwords and roles, add this:
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }
+            new:
+                fields:
+                    - name
+                    # if administrators are allowed to edit users' passwords and roles, add this:
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }
+        Book:
+            class: Greg0\LibraryBundle\Entity\Book
+            list:
+                fields: ['id', {property: 'cover', type: 'image', base_path: %app.path.book_covers%}, 'title', 'author']
+            form:
+                fields:
+                    - { property: 'title', type: 'text'}
+                    - { property: 'short_description', type: 'text'}
+                    - { property: 'description'}
+                    - { property: 'cover_file', type: 'vich_image' }
+                    - { property: 'author'}
+        Author:
+            class: Greg0\LibraryBundle\Entity\Author
+            list:
+                fields: ['id', 'full_name', 'book']
+            form:
+                fields:
+                    - { property: 'first_name', type: 'text', type_options: {required: true} }
+                    - { property: 'last_name', type: 'text', type_options: {required: true} }
+                    - { property: 'description', css_class: 'input-large', type_options: { required: false } }
+    design:
+        assets:
+            favicon: '/assets/backend/favicon.png'
+        color_scheme: 'light'

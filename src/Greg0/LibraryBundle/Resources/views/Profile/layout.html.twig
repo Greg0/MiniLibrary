@@ -1,0 +1,44 @@
+{% extends 'LibraryBundle:Layout:layout.html.twig' %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Menu</h4></div>
+                <div class="list-group">
+                    <a href="{{ path('profile_create_book') }}" class="list-group-item {% if menu_selected == 'new_book' %}active{% endif %}">
+                    {{ 'profile.create_book'|trans({}, 'LibraryBundle') }}
+                    </a>
+                    <a href="{{ path('profile_library') }}"
+                       class="list-group-item {% if menu_selected|default('library') == 'library' %}active{% endif %}">
+                        <span class="badge">{{ app.user.books.count() }}</span>
+                        {{ 'profile.my_library'|trans({}, 'LibraryBundle') }}
+                    </a>
+                    <a href="{{ path('profile_borrows') }}"
+                       class="list-group-item {% if menu_selected == 'borrows' %}active{% endif %}">
+                        <span class="badge">{{ app.user.outgoingBorrows.count() }}</span>
+                        {{ 'profile.requests_outgoing'|trans({}, 'LibraryBundle') }}
+                    </a>
+                    <a href="{{ path('profile_requests') }}"
+                       class="list-group-item {% if menu_selected == 'requests' %}active{% endif %}">
+                        <span class="badge">{{ app.user.incomingBorrows.count() }}</span>
+                        {{ 'profile.requests_incoming'|trans({}, 'LibraryBundle') }}
+                    </a>
+                    <a href="{{ path('fos_user_security_logout') }}" class="list-group-item">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                        {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-9 col-sm-9 col-xs-9">
+            {% block profile_body %}
+            {% endblock %}
+        </div>
+    </div>
+
+
+{% endblock %}
+

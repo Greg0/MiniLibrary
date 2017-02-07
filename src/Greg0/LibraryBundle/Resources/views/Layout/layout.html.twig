@@ -1,0 +1,140 @@
+{# app/Resources/views/layout.html.twig #}
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/dark_nav.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/tagsinput.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/tagsinput-bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-select.min.css') }}">
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse bs-dark" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ path('homepage') }}">{{ 'main.app_name'|trans({}, 'LibraryBundle') }}</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="{{ path('book_index') }}">{{ 'topnav.browse_library'|trans({},'LibraryBundle') }}</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <span class="glyphicon glyphicon-user"></span>
+                        {{ app.user.getFullName() }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ path('profile_library') }}">
+                                {{ 'profile.my_library'|trans({},'LibraryBundle') }}
+                                <span class="badge">{{ app.user.books.count() }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('profile_borrows') }}">
+                                {{ 'profile.requests_outgoing'|trans({}, 'LibraryBundle') }}
+                                <span class="badge">{{ app.user.outgoingBorrows.count() }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('profile_requests') }}"
+                               {% if app.user.incomingBorrows.count() > 0 %}class="bg-danger"{% endif %}>
+                                {{ 'profile.requests_incoming'|trans({}, 'LibraryBundle') }}
+                                <span class="badge">{{ app.user.incomingBorrows.count() }}</span>
+                            </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li>
+                                <a href="{{ path('report_list') }}">
+                                    <span class="glyphicon glyphicon-flag"></span>
+                                    {{ 'admin.reports'|trans({}, 'LibraryBundle') }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('easyadmin') }}" target="_blank">
+                                    <span class="glyphicon glyphicon-lock"></span>
+                                    {{ 'admin.panel'|trans({}, 'LibraryBundle') }}</a>
+                            </li>
+                        {% endif %}
+                        <li>
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                <span class="glyphicon glyphicon-off"></span>
+                                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-right" method="get" action="{{ path('book_search') }}">
+                <div class="input-group">
+                    <input type="text" name="search" class="search-box typeahead" placeholder="Search..."
+                           autocomplete="off">
+                    <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </form>
+        </div>
+    </div><!--
+        <!-- /.navbar-collapse -->
+    <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            {% for type, messages in app.session.flashBag.all %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ type }} alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    {% block header %} {% endblock %}
+    {% block body %} {% endblock %}
+</div>
+<!-- /.container -->
+
+<div class="container">
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; Grzegorz Kuźnik &amp; Adam Gr&auml;ser 2017</p>
+            </div>
+        </div>
+    </footer>
+
+</div>
+<!-- /.container -->
+
+
+{#<script src="{{ asset('assets/vendor/jquery/dist/core.js') }}"></script>#}
+<script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap3-typeahead.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-tagsinput.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
+<script src="{{ asset('assets/js/main.js') }}"></script>
+</body>
+</html>

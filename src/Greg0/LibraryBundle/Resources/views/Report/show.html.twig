@@ -1,0 +1,48 @@
+{% extends 'LibraryBundle:Layout:layout.html.twig' %}
+
+{% block header %}
+    {% if header is defined %}
+        <h2>{{ header }}</h2>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ 'report.message'|trans({}, 'LibraryBundle') }}</div>
+            <div class="panel-body">
+                {{ report.message }}
+            </div>
+            <div class="panel-footer">
+                {% if report.verified == false %}
+                <a href="{{ path('report_verify', {reportId: report.id}) }}" class="btn btn-success btn-xs">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    {{ 'report.mark_as_verified'|trans({}, 'LibraryBundle') }}
+                </a>
+                {% endif %}
+                <a href="{{ path('report_list') }}" class="btn btn-default btn-xs">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                    {{ 'common.back'|trans({}, 'LibraryBundle') }}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-info">
+            <div class="panel-heading">{{ 'report.book'|trans({}, 'LibraryBundle') }}</div>
+            <div class="panel-body">
+                <img class="img-thumbnail cover-mini" src="{{ asset(report.book.getCover(), 'cover') }}" alt="">
+                <a href="{{ path('book_show', {id: report.book.id}) }}">{{ report.book.title }}</a>
+            </div>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">{{ 'report.author'|trans({}, 'LibraryBundle') }}</div>
+            <div class="panel-body">
+                {{ report.author.fullName }}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'LibraryBundle:Layout:layout.html.twig' %}
+
+{% block body %}
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th class="col-md-3">{{ 'report.author'|trans({}, 'LibraryBundle') }}</th>
+            <th class="col-md-7">{{ 'book.title'|trans({}, 'LibraryBundle') }}</th>
+            <th class="col-md-1">{{ 'report.verified'|trans({}, 'LibraryBundle') }}</th>
+            <th class="col-md-1">{{ 'common.actions'|trans({}, 'LibraryBundle') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for report in reports %}
+            <tr>
+                <td>{{ report.author.fullName }}</td>
+                <td><a href="{{ path('book_show', {id: report.book.id}) }}">{{ report.book.title }}</a></td>
+                <td class="text-center">
+                    <a href="{{ path('report_verify', {reportId: report.id}) }}">
+                    {% include '@Library/Report/list/label.html.twig' with {value:report.verified, entity: report} %}
+                    </a>
+                </td>
+                <td><a href="{{ path('report_show', {reportId: report.id}) }}" class="btn btn-default"> <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a> </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
