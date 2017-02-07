@@ -6,3 +6,9 @@ $input.typeahead({
         });
     }, delay: 100
 });
+
+
+$('a.report-book--button').click(function() {
+   $('div.report-book--form').slideToggle("normal");
+   return false;
+});

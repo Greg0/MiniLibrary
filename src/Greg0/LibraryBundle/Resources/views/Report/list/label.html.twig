@@ -1,0 +1,9 @@
+{% trans_default_domain "LibraryBundle" %}
+{% set labelType = 'danger' %}
+{% set lang = 'no' %}
+
+{% if value == true %}
+    {% set labelType = 'success' %}
+    {% set lang = 'yes' %}
+{% endif %}
+<span class="label label-{{ labelType }}">{{ ('common.' ~ lang)|trans({}, 'LibraryBundle') }}</span>

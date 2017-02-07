@@ -49,3 +49,15 @@ request_change_status:
 user_books:
     path: /user_books/{userId}
     defaults: { _controller: LibraryBundle:Profile:userLibrary }
+report_book:
+    path: /book_report/{bookId}
+    defaults: { _controller: LibraryBundle:Report:reportBook }
+report_list:
+    path: /report/list
+    defaults: { _controller: LibraryBundle:Report:list }
+report_show:
+    path: /report/show/{reportId}
+    defaults: { _controller: LibraryBundle:Report:show }
+report_verify:
+    path: /report/verify/{reportId}
+    defaults: { _controller: LibraryBundle:Report:verify }

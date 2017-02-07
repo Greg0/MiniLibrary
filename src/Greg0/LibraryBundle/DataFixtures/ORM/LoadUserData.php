@@ -27,10 +27,13 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $adminGroup  = $this->getReference('admin-group');
         $userGroup   = $this->getReference('user-group');
 
+        /** @var User $userAdmin */
         $userAdmin = $userManager->createUser();
         $userAdmin->setUsername('admin');
         $userAdmin->setPlainPassword('admin');
         $userAdmin->setEmail('admin@mlib.local');
+        $userAdmin->setFirstName('Pan');
+        $userAdmin->setLastName('Administrator');
         $userAdmin->setEnabled(true);
         $userAdmin->setSuperAdmin(true);
         $userAdmin->addGroup($adminGroup);
@@ -42,6 +45,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user1->setUsername('user1');
         $user1->setPlainPassword('user1');
         $user1->setEmail('user1@mlib.local');
+        $userAdmin->setFirstName('Grzegorz');
+        $userAdmin->setLastName('Kuźnik');
         $user1->setEnabled(true);
         $user1->addGroup($userGroup);
         $user1->addBook($this->getReference('book1'));
@@ -57,7 +62,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user2->setUsername('user2');
         $user2->setPlainPassword('user2');
         $user2->setEmail('user2@mlib.local');
-        $user2->setEnabled(true);
+        $userAdmin->setFirstName('Test');
+        $userAdmin->setLastName('Testowski');
+        $user1->setEnabled(true);
         $user2->addGroup($userGroup);
         $user2->addBook($this->getReference('book3'));
         $user2->addBook($this->getReference('book5'));
@@ -69,7 +76,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user3->setUsername('user3');
         $user3->setPlainPassword('user3');
         $user3->setEmail('user3@mlib.local');
-        $user2->setEnabled(true);
+        $userAdmin->setFirstName('Adam');
+        $userAdmin->setLastName('Graser');
+        $user1->setEnabled(true);
         $user3->addGroup($userGroup);
         $user3->addBook($this->getReference('book2'));
         $user3->addBook($this->getReference('book5'));

@@ -34,6 +34,12 @@ class User extends BaseUser
      */
     protected $incomingBorrows;
 
+    /** @var string */
+    protected $firstName;
+
+    /** @var string */
+    protected $lastName;
+
     /**
      * Constructor
      */
@@ -79,6 +85,10 @@ class User extends BaseUser
 
     public function getFullName()
     {
+        if (empty($this->getFirstName()) == false && empty($this->getLastName()) == false)
+        {
+            return $this->getFirstName().' '.$this->getLastName();
+        }
         return $this->getUsername();
     }
 
@@ -97,5 +107,39 @@ class User extends BaseUser
     {
         return $this->incomingBorrows;
     }
+
+    /**
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param string $firstName
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+    }
+
+
 
 }

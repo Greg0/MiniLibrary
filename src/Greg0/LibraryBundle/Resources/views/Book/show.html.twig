@@ -43,9 +43,15 @@
             </div>
             <div class="row">
                 <div class="col-xs-5 report-buttons">
-                    <p>
-                    <a href="" class="btn btn-default btn-xs">Zgłoś administratorowi</a>
-                    </p>
+                        <a href="#" class="btn btn-default btn-xs report-book--button">
+                            <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
+                            Zgłoś administratorowi
+                        </a>
+                    <div style="display: none;" class="report-book--form">
+                        {{ form_start(reportForm, {'action': path('report_book', {bookId: book.id}), 'method': 'POST'}) }}
+                        {{ form_widget(reportForm) }}
+                        {{ form_end(reportForm) }}
+                    </div>
                 </div>
             </div>
         </div>

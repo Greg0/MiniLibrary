@@ -85,6 +85,7 @@ vich_uploader:
         book_covers:
             uri_prefix:         %app.path.book_covers%
             upload_destination: %kernel.root_dir%/../web/uploads/images/book
+            namer:              vich_uploader.namer_uniqid
 
 easy_admin:
     site_name: 'Book Share'
@@ -93,17 +94,18 @@ easy_admin:
             class: Greg0\LibraryBundle\Entity\User
             controller: Greg0\LibraryBundle\Controller\UserAdminController
             list:
-                fields: ['id', 'username', 'email', 'last_login', 'enabled']
+                fields: ['id', 'username', 'firstName', 'lastName', 'email', 'last_login', 'enabled']
             edit:
                 fields:
                     - username
+                    - firstName
+                    - lastName
                     - email
                     - enabled
                     - groups
                     # if administrators are allowed to edit users' passwords and roles, add this:
                     - { property: 'plainPassword', type: 'password', type_options: { required: false } }
                     - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }
-                    - { property: 'bookVersion' }
                 form_options: { validation_groups: ['Profile'] }
             new:
                 fields:
@@ -152,4 +154,4 @@ easy_admin:
     design:
         assets:
             favicon: '/assets/backend/favicon.png'
-
+        color_scheme: 'light'

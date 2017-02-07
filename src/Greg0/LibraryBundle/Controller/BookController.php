@@ -3,7 +3,9 @@
 namespace Greg0\LibraryBundle\Controller;
 
 use Greg0\LibraryBundle\Entity\Book;
+use Greg0\LibraryBundle\Entity\Report;
 use Greg0\LibraryBundle\Entity\User;
+use Greg0\LibraryBundle\Form\ReportType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -43,11 +45,15 @@ class BookController extends Controller
             return $user->getId() !== $loggedUser->getId();
         });
 
+        $report = new Report();
+        $reportForm = $this->createForm(ReportType::class, $report);
+
         return $this->render('LibraryBundle:Book:show.html.twig', [
             'book'        => $book,
             'authors'     => $authors,
             'owners'      => $owners,
             'userOwnBook' => $userOwnBook,
+            'reportForm'  => $reportForm->createView(),
         ]);
     }
 
